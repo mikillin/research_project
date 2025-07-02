@@ -1,0 +1,648 @@
+\documentclass[12pt]{report}           % Art des zu erstellenden Dokuments
+% bei zweiseitigem Druck twoside-Option oder book-Klasse verwenden
+
+% **************************** PACKAGE SETUP *******************************
+\usepackage{xurl}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage[english]{babel}          % Lokalisierung von Typographie, Silbentrennung, etc.
+\usepackage[utf8]{inputenc}         % Unterstützung von UTF-8 in Eingabe-Dateien
+\usepackage[style=apa,backend=biber,giveninits=true,maxbibnames=99,dashed=false,isbn=false,uniquelist=false,uniquename=false,maxcitenames=2,date=year]{biblatex}
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map[overwrite]{
+			\step[fieldsource=doi, final]
+			\step[fieldset=url, null]
+			\step[fieldset=eprint, null]
+		}  
+	}
+}
+\renewbibmacro*{volume+number+eid}{%
+	\printfield{volume}%
+	%  \setunit*{\adddot}% DELETED
+	\setunit*{\addnbspace}% NEW (optional); there's also \addnbthinspace
+	\printfield{number}%
+	\setunit{\addcomma\space}%
+	\printfield{eid}}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+\renewbibmacro{in:}{%
+	\ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+\AtEveryBibitem{%
+	\clearlist{language}%
+}
+
+\newbibmacro*{location}{%
+	\iflistundef{location}
+	{}
+	{\printlist{location}\setunit{\addcomma\space}}
+}
+
+\renewbibmacro*{maintitle+booktitle}{%
+	\usebibmacro{booktitle}%
+	\setunit*{\addperiod\space}%
+	\usebibmacro{location}%
+	\setunit*{\addcomma\space}%
+	\iffieldundef{series}
+	{}
+	{\newunit
+		\printfield{series}%
+		\setunit{\addcomma\space}}%
+	\usebibmacro{volume+number+eid}%
+	\setunit{\addspace}%
+	\usebibmacro{issue}%
+	\newunit}
+\DeclareCiteCommand{\cite}
+{\usebibmacro{prenote}}
+{\usebibmacro{citeindex}%
+	\printtext{\printnames{labelname}} % 
+	({\bibhyperref{\printdate}})}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+
+\DeclareCiteCommand{\citep}
+{(\usebibmacro{prenote}}
+{\usebibmacro{citeindex}%
+	\printtext{\printnames{labelname}} % 
+	({\bibhyperref{\printdate}})}
+{\multicitedelim}
+{\usebibmacro{postnote})}
+
+\DeclareNameAlias{sortname}{last-first}
+\addbibresource{bib/thesis.bib}% Syntax for version >= 1.2                  % Erweiterte Unterstützung von UTF-8-Kodierung
+\usepackage[breaklinks=true]{hyperref}  
+% Erweiterte Unterstützung von UTF-8-Kodierung
+\usepackage[T1]{fontenc}             % Zeichensatzkodierung von LaTeX (Cork-Kodierung)
+\usepackage{helvet,courier,mathptmx} % Verwendete Schriftarten
+
+\usepackage{amsmath}                 % Mathematische Infrastruktur für LaTeX der AMS
+\usepackage{amsfonts}                % Mathematische Schriftarten
+\usepackage{amssymb}                 % Mathematische Symbole
+\usepackage{amsthm}                  % Erweiterung der Theorem-Umgebungen
+\usepackage{fancyhdr}                % Erweiterte Konfiguration von Kopf/Fußzeile
+\usepackage{geometry}
+%\usepackage{hyperref}                % Querverweise, Hyperlink, pdf-Konfiguration, etc.
+
+\usepackage{float}                   % Selbstdefinierte Floating-Umbgebungen
+\usepackage{tabularx}                % Tabellen mit einstellbarer Spaltenbreite
+\usepackage[labelfont=bf]{caption}   % Anpassen der Abbildungs- und Tabellenbeschriftungen
+
+\usepackage{algpseudocode}           % Algorithmen als Pseudocode (basiert auf algorithmicx)
+\usepackage{listings}                % Quellcode-Satz (z.B. mit Syntax-Hervorhebung)
+
+\usepackage{graphicx}                % Erweiterte Unterstützung von Graphiken
+\usepackage{textpos}                 % Beliebig platzierte Textboxen
+\usepackage{xcolor}                  % TeX-Engine-unabhängige Definition von Farben
+
+% ****************************** TOP MATTER ***********************************
+\renewcommand{\author}{Fredi Student}           % Name
+\newcommand{\dateOfBirth}{xxxx-xx-xx}           % Geburtsdatum
+\newcommand{\matrNumber}{xxx xxxx}              % Matrikelnummer
+\newcommand{\studycourse}{Computer Science}           % Studiengang
+\newcommand{\specialization}{Practical Computer Science}           % Studiengang
+
+\newcommand{\supervisor}{Prof. Dr. Burkhard Lenze} % Betreuer
+
+\newcommand{\secondsupervisor}{Prof. Dr. Burkhard Lenze} % Zweitbetreuer
+\newcommand{\institution}{University of Applied Sciences and Arts Dortmund} % Hochschule
+\newcommand{\faculty}{Computer Science}               % Fachbereich
+\newcommand{\toponym}{Dortmund}                 % Ort
+
+\newcommand{\subject}{Bachelor-/Master Thesis}  % Art/Thema der Arbeit
+\newcommand{\titel}{This is the Title\\ The Original Template of   Prof. Dr. Lenze was Slightly Adjusted} % Titel der Arbeit
+\newcommand{\subtitel}{Two-line subtitle\\if available} % Untertitel
+\newcommand{\degree}{Bachelor/Master of Science} % Angestrebter Titel (nur bei Abschlussarbeiten, sonst leer lassen/auskommentieren)
+
+\newcommand{\keywords}{Vorlage, Bachelorarbeit, Masterarbeit, Informatik, {FH Dortmund}} % Stichworte (durch Komma getrennt)
+
+% **************************** HYPERREF SETUP *******************************
+\hypersetup
+{
+	bookmarks=true,                        % Lesezeichen im PDF erzeugen
+	bookmarksopen=true,                    % Lesezeichen im PDF sofort anzeigen
+	backref=true,                          % Rückverweise im Literaturverzeichnis
+	colorlinks=true,                       % Farbige Verweise
+	breaklinks = true,
+	%hidelinks = true,                      % Verweise verbergen (entfernt Farbe und Rahmen)
+	pdfstartview={FitH},                   % Ansicht des PDFs beim öffnen
+	pdftitle={\titel},                     % Title des PDFs
+	pdfauthor={\author , \supervisor},     % Autor des PDFs
+	pdfsubject={\subject},                 % Thema des PDFs
+	%pdfcreator={Creator},                 % Erzeuger des Dokuments (Anwendungsprogramm)
+	%pdfproducer={Producer},               % Ersteller des PDFs (Programm/Bibliothek/Skript)
+	pdfkeywords={\keywords},               % Stichwörter zum PDF
+	linkcolor=black,                   % Farbe von Querverweisen
+	citecolor=black,                       % Farbe von Zitaten
+	filecolor=black,                     % Farbe von Verweisen auf Dateien
+	urlcolor=black                          % Farbe von URLs
+}
+% Weitere Optionen: http://www.tug.org/applications/hyperref/manual.html
+
+% **************************** LISTINGS SETUP *******************************
+\definecolor{keywords}{rgb}{0.5 0 0.3}
+\definecolor{comments}{rgb}{0.25,0.5,0.37}
+\lstset{ %
+	backgroundcolor=\color{white},   % Hintergrundfarbe
+	basicstyle=\linespread{0.94}\footnotesize\ttfamily, % Schrifteinstellungen für Quellcode
+	breakatwhitespace=false,         % Automatische Zeilenumbrüche nur bei Leer- oder Tabulatorzeichen (Leerraum/whitespaces)
+	breaklines=true,                 % Automatische Zeilenumbrüche
+	captionpos=b,                    % Beschriftung unten
+	commentstyle=\color{comments},   % Schrifteinstellungen für Kommentare
+	%  deletekeywords={...},            % Bestimmte Schlüsselwörter entfernen
+	escapeinside={\%*}{*)},          % Defintion von Escape-Sequenzen
+	extendedchars=true,              % Nicht ASCII-Zeichen erlauben
+	frame=single,                    % Rahmen um den Quellcode
+	keepspaces=true,                 % Einrückungen im Quellcode behalten
+	keywordstyle=\bfseries\color{keywords},% Schrifteinstellungen für Schlüsselwörter
+	language=java,                   % Programmiersprache des Quellcodes
+	%  morekeywords={*,...},            % Zusätzliche Schlüsselwörter
+	numbers=left,                    % Zeilennummerierung
+	numbersep=5pt,                   % Abstand zwischen Zeilennummerierung und Quellcode
+	numberstyle=\tiny\color{gray}, % Schrifteinstellungen für Zeilennummern
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                % Leerraum-Zeichen anzeigen
+	showstringspaces=false,          % Leerzeichen in Zeichenketten anzeigen
+	showtabs=false,                  % Tabulatorzeichen in Zeichenketten anzeigen
+	stepnumber=1,                    % Schrittweite bei Zeilennummern
+	stringstyle=\color{blue},        % Schrifteinstellungen für Zeichenketten
+	tabsize=4,                       % Tabulatorbreite (Anzahl Leerzeichen)
+	numberbychapter=false            % Nummeriere Quellcode fortlaufend je Kapitel
+}
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+\renewcommand{\lstlistingname}{Quellcode}
+
+\AtBeginDocument{\numberwithin{lstlisting}{section}} % Nummeriere Quellcode fortlaufend je Abschnitt
+
+% ************************** HEADER/FOOTER SETUP ****************************
+\setlength{\headheight}{15pt}
+
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+
+\fancyhf{}
+\fancyhead[LE]{\thepage \ \ \ \ {\tiny \author, \today}}
+\fancyhead[RO]{{\tiny \author, \today} \ \ \ \ \thepage}
+\fancyhead[LO,RE]{\textit{\nouppercase{\leftmark}} }
+\renewcommand{\headrulewidth}{0pt}
+
+% **************************** GRAPHICX SETUP *********************************
+\DeclareGraphicsExtensions{.pdf,.png,.jpg} % bekannte Graphik-Dateiformate (müssen nicht mehr im Dateinamen angegeben werden, also statt "beispiel.png" nur noch "beispiel")
+\graphicspath{{./figure/}}   % path to graphics folder, usage {PATH},{ANOTHERPATH}...
+
+
+% ****************************** MATH SETUP ************************************
+\everymath{\displaystyle}    % Erzwinge \displaystyle für Mathematischen-Modus
+
+
+% ************************* THEOREMS AND PROOF *********************************
+\newtheoremstyle{thesis}     % Name des neuen Theorem-Stils
+{3pt}                        % Abstand oberhalb des Theorems
+{3pt}                        % Abstand unterhalb des Theorems
+{\itshape}                   % Schrifteinstellungen innerhalb des Theorems
+{}                           % Einrückung der Theorem-Überschrift
+{\bfseries}                  % Schrifteinstellungen für die Überschrift des Theorems
+{}                           % Satzzeichen zwischen Überschrift und Theorem-Rumpf
+{\newline}                   % Abstand hinter der Überschrift
+{}                           % Spezifikation der Überschrift
+
+\theoremstyle{thesis}        % Verwende neuen Theorem-Stil
+
+\newtheorem{theorem}{Satz}[section] % neue Theorem-Umgebung: theorem (Satz)
+\providecommand*{\theoremautorefname}{Satz} % autoref-Name für theorem
+
+\newtheorem{definition}{Definition}[section] % neue Theorem-Umgebung: definition (Definition)
+\providecommand*{\definitionautorefname}{Definition} % autoref-Name für definition
+
+\renewcommand{\qedsymbol}{$\blacksquare$} % Schwarzes Quardrat als Symbol für: q. e. d.
+\renewenvironment{proof}[1][\proofname]{{\bfseries #1:}~}{\qed} % "Beweise:" in Fettdruck
+
+% *************************** PSEUDOCODE SETUP ********************************
+\floatstyle{boxed}                        % Rahmen für pseudocode-Umgebung
+\newfloat{pseudocode}{htbp}{lop}[section] % Definieren pseudocode-Umgebung
+\floatname{pseudocode}{Pseudocode}        % Beschrifte pseudocode-Umgebung mit "Pseudocode"
+
+\newcommand{\listofpseudocodename}{Pseudocodeverzeichnis}
+\newcommand{\listofpseudocode}{\listof{pseudocode}{\listofpseudocodename}}
+\providecommand*{\pseudocodeautorefname}{Pseudocode}
+
+% ******************************* PAGE SETUP **********************************
+\textheight22cm
+\textwidth14cm
+\voffset0cm
+\topskip0cm
+\topmargin-1.2cm
+\headheight1.0cm
+\headsep1.5cm
+\oddsidemargin1.0cm
+\evensidemargin1.0cm
+\renewcommand{\baselinestretch}{1.4} 
+\widowpenalty=300
+\clubpenalty=300
+
+% ******************************** MACROS *************************************
+\newcommand{\RR}{\mathbf{R}}
+\newcommand{\NN}{\mathbf{N}}
+\newcommand{\QQ}{\mathbf{Q}}
+\newcommand{\ZZ}{\mathbf{Z}}
+\newcommand{\CC}{\mathbf{C}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ************************** BEGINN OF DOCUMENT *******************************
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\sloppy
+	
+	\begin{titlepage}
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -*- Mode: Latex -*- %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%% 
+		%% pa_ba_titelblatt.tex 
+		%% 
+		%% Copyright (C) 2008 Alexander Sprack / Claudia Holz
+		%% 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\definecolor{fh_grau}{gray}{0.752941}
+		\begin{textblock}{6.5}(-1.5,-3)
+			\begin{color}{fh_grau}
+				\rule{9cm}{33cm}    
+			\end{color}
+		\end{textblock}
+		\begin{textblock}{6.5}(-1.2,-0.7)
+			%  \includegraphics[width=3.8cm]{my-fh-logo}% selbst basteln, falls gewünscht! 
+			% Das offizielle Logo ist nicht
+			% gestattet!! Bitte BEACHTEN!!!
+		\end{textblock}
+		\begin{textblock}{6.5}(-1.3,1)
+			{\large \textsf{\subject}}            
+		\end{textblock}
+		
+		\begin{textblock}{7}(6.1,2)
+			{\noindent \large
+				\textsf{\textbf{\titel} \\ 
+					\large \subtitel \\} }
+		\end{textblock}
+		
+		
+		\begin{textblock}{6}(6.1,6.5)\noindent
+			\textsf{At the Department of \faculty\\
+				of the \institution \\
+				Course of study: \studycourse \\
+				Specialization: \specialization \\
+				\subject \\
+				\ifdefined\degree%
+				\if\degree\empty%
+				\else%
+				for the acquisition of the degree of \\
+				\degree
+				\fi
+				\else%
+				\fi}
+		\end{textblock}
+		
+		\begin{textblock}{6.5}(-0.9,9.8)
+			\noindent
+			\textsf{by \\
+				\author \\
+				Date of Birth: \dateOfBirth  \\
+				Matr.-No. \matrNumber \\\\
+				Supervisor: \supervisor \\
+				Second Supervisor: \secondsupervisor \\      \toponym, \today}    
+		\end{textblock}
+		
+	\end{titlepage}
+	
+	% ***************************** FRONT MATTER **********************************
+	\setcounter{page}{1}
+	\pagenumbering{roman}
+	
+	\chapter*{Overview}
+	\textcolor{red}{\textbf{Note:} In order to compile this template without errors, the compilation settings must be adjusted for different LaTeX editors (TeXmaker, TeXstudio, etc.). Biber must be selected as the default bibliography programme instead of BibTeX.}
+	
+	\textcolor{red}{\textbf{Note:} This template is a work in progress. If you have any questions or comments, please contact \texttt{louise.bloch@fh-dortmund.de}.}
+	\section*{Abstract}
+	This should be an abstract of about half a page. The purpose of the abstract is to give the reader a compact overview of the entire thesis. It usually contains a compact presentation of the motivation, the research question, the methods used and the main results. The abstract must be understandable to the reader without knowledge of the rest of the thesis. It must not contain any information that goes beyond the content of the thesis. The abstract does not contain references. 
+	As a rule, you should write the abstract after you have completed the thesis. The aim is to provide a clear and focused summary of your work. This often takes several iterations.
+
+	\newpage
+	\section*{Abstract}
+Hier findet eine deutsche Übersetzung des englischen \glqq Abstract\grqq{} statt. 
+	\newpage
+	
+	
+	% *************************** TABLE OF CONTENTS *******************************
+	% ************************* (Inhaltsverzeichnis) ******************************
+	% Die Auskommentierte Zeile fügt das Inhaltsverzeichnis zum Inhaltsverzeichnis hinzu. Diese Verhalten kann auch über das Paket tocbibind erreicht werden. Allerdings funktioniert das Paket nicht für das Pseudocodeverzeichnis, aus diesem Grund werden die Einträge "manuell" hinzugefügt.
+	
+	%\phantomsection\addcontentsline{toc}{chapter}{\numberline{}\contentsname}
+	{
+		\baselineskip=15pt % Schriftlinien-Abstand 15 pt (nur beim Inhaltsverzeichnis)
+		\tableofcontents   % Inhaltsverzeichnis einfügen
+	}
+	{
+		\baselineskip=22pt % Schriftlinien-Abstand 22 pt (bei allen anderen Verzeichnissen)
+		
+		% **************************** LIST OF FIGURES ********************************
+		% ************************ (Abbildungsverzeichnis) ****************************
+		%\clearpage\phantomsection\addcontentsline{toc}{chapter}{\numberline{}\listfigurename}
+		
+		%\listoffigures % Abbildungsverzeichnis einfügen
+		
+		% **************************** LIST OF TABLES *********************************
+		%\clearpage\phantomsection\addcontentsline{toc}{chapter}{\numberline{}\listtablename}
+		
+		%\listoftables % Tabellenverzeichnis einfügen
+		
+		% ************************** LIST OF PSEUDOCODE *******************************
+		%\clearpage\phantomsection\addcontentsline{toc}{chapter}{\numberline{}\listofpseudocodename}
+		
+		%\listofpseudocode % Pseudocodeverzeichnis einfügen
+		
+		% *************************** LIST OF LISTINGS ********************************
+		%\clearpage\phantomsection\addcontentsline{toc}{chapter}{\numberline{}\lstlistlistingname}
+		
+		%\lstlistoflistings % Quellcodeverzeichnis einfügen
+	}
+	
+	% ***************************** MAIN MATTER ***********************************
+	
+	\chapter{Introduction}
+	\label{chap:einleitung}
+	\pagestyle{fancy}
+	\pagenumbering{arabic}
+	
+	{\bf IMPORTANT NOTE:} 
+	Everything in this {\bf draft} concerning the aspect of {\bf scientific work} in the preparation of a Bachelor's/Master's thesis is absolutely {\bf binding} and must be taken into account without exception!
+	Everything in this {\bf draft} concerning the {\bf layout} of a Bachelor's/Master's thesis reflects the {\bf personal} opinion of the authors! Every student can develop their own ideas! You can find some helpful pointers here.
+	
+	Now for the introduction. What should it contain, among other things?
+	
+	\begin{itemize}
+		\itemsep -0.2cm
+		\item Explanation of the problem  
+		\item Motivation for addressing the problem
+		\item Reference to any existing related works  
+		\item Distinction of your thesis from any existing works 
+		\item Brief summary of the resulting objectives of the thesis
+		\item Brief outline of the structure of the thesis
+	\end{itemize}
+	
+	\section{Motivation}
+	This section introduces and motivates the problem investigated in the thesis. 
+	
+	\section{Objective}
+	The reader should be given a precise description of the objective of the work in a few sentences, so that he or she can critically evaluate the author's following statements in terms of goal-oriented work and goal achievement.
+	\section{Structure of the thesis}
+	At the end of the introductory chapter, you should describe the structure of the thesis. It is useful to explain the main content of each chapter. You should reference each chapter. Make sure you always state the type of reference. For example: Chapter 2 explains how to summa-rise the state of the art in a clear and structured way. Where appropriate, particularly relevant sub-chapters may also be referenced. Make sure that the term \glqq sections\grqq{} is used from the subchapter level onwards. The term \glqq subsection\grqq{} should not be used as this would disrupt the flow of the text.
+	
+	\chapter{State of the art}\label{chap:StandDerTechnik}
+	If necessary, a more detailed classification of the thesis in the context of current research can be made here. This is particularly necessary for Master's theses. A clear distinction is usually made between the thesis and existing research and developments in related research areas. For the sake of clarity, it is often useful to prepare a table summarising the research results described in this section. This can be used to summarise the main content and findings of previous research.
+	
+	\section{Citation}
+	Important in this and all subsequent chapters: {\bf Cite your sources!!!} Whenever something is taken literally or analogously from a book, a publication, a lecture or a website, this {\bf must} be indicated by stating the source in the text (e.g., \cite[vgl.][S.\ 23ff]{Lenze_Einfuehrung_2000}) and the complete source in the bibliography! It is absolutely not permitted to copy longer passages {\bf verbatim, almost verbatim or analogously} from another document without citing this precisely, even if the reference is given in the bibliography (plagiarism, failed, no repeti-tion possible). As part of the declaration at the end of the Bachelor's/Master's thesis, the stu-dent pledges to have complied with this fundamental obligation in the context of academic work, to have cited all sources and to have indicated quotations.  \cite{Bloch2023PreprintResolver}, \cite{Bloch2023PreprintResolvera}
+	
+	Remember that if you do not cite correctly, you are responsible for other people's (possibly incorrect) statements. If you cite the basis on which you have made your statements, you show that you have worked to the best of your knowledge. On the other hand, if you do not cite other people's statements and pass them off as your own, you may be held responsible for other people's mistakes. 
+	
+	Also remember that citations help you. In science, claims are usually supported by experi-ments or studies. You can therefore avoid doing your own research by building on the results of other scientists. You should thank the authors by citing them.
+	
+	If there is a prevalence of correctly quoted, but more or less literally copied passages in a paper, this is not plagiarism in the strict sense, but it is also not proof of independent scien-tific and practical work as required by the examination regulations (failed, retake possible). 
+	
+	Sources can be cited in the document as a reference  \cite{Article} or as a footnote\footnote{\cite{Article}}. It is only important that one of the two types is used consistently throughout the document.
+	
+	This is a citation with two authors \cite{Chui_Approximation_1992} and this with more than two authors \cite{Leshno_Multilayer_1993}.
+	
+	Remember that when citing book sources, a page number must always be given.
+	\subsection{Literal quotations}
+	If a passage is taken verbatim from another source, it must be placed in quotation marks and accompanied by precise details of the source, including page references. It is also a good idea to italicise the quoted passage to make it stand out from your own statements. Here's an example:  \glqq It's like this: at the start of the project, you know very little about the development effort and time required. As the project progresses, however, the degree of accuracy increases until you know everything at the end of the project, because then everything has happened.\grqq\cite{kupper1986kunst}
+	\chapter{Methods}
+	\label{chap:theorie}
+	In this section, describe relevant techniques or methods. Focus on essential basics that will help the reader understand your working method, design choices, or implementation de-scribed later.
+	\section{Formulas}
+	These sections deal with the basics of the problem to be solved. Formulas can be used here. Example of a formula:
+	
+	\begin{equation}
+		a^2+b^2=c^2\label{form:Pythagoras}
+	\end{equation}
+	
+shows the relationship between the side lengths of a right triangle. Again, remember to speci-fy the type of reference (in this case, Formula). The first reference should be as close as pos-sible to the formula being used. Also, the order of the formulas should be maintained for the reference. If possible, do not reference Formula 5 before referencing Formula 4. You should also explain any variables used in the formula. Example: In Formula \ref{form:Pythagoras} the variables $a$ and $b$ die Seitenlänge der beiden Katheten dar. represent the side lengths of the two legs. The variable $c$ is the length of the hypotenuse
+	\section{Figures}
+	
+	Figures (see \autoref{fig:Example}) can also be useful and can be integrated as well. They are used to visually illustrate process-es, results, or procedures. Overall, make sure to include them in high quality (for print quality $\geq$ DPI if possible). Avoid using the jpg format except for photos, as artifacts can occur. For graphs and other figures that may contain text, use vector formats (svg, pdf, emf, ...) if possi-ble. Scale the width and height of images equally, otherwise distortion will occur. For color images, check that they are still visible on a black-and-white printer. Make sure that the same types of figures (e.g. box plots, scatter plots, bar charts, ...) are displayed as uniformly as possible. If possible, use colors only to support information, and use legends to clarify the meaning of colors. Also, use meaningful axis labels, including units. For accessibility rea-sons, do not use red-green or white labels in colored boxes. 
+	
+Each embedded figure also requires a caption ({\bf below} the figure), which must be meaningful and self-explanatory. The reader should be able to extract all the information from the image and the caption in order to understand it. Each caption should end with a full stop.
+	
+If you have taken the image from an external source, you must also state this in the caption (e.g. [Image source: [Quelle: \cite{Lenze_Note_1994}]) This also applies if you have modified the original graphic or copied it from another source ([e.g. figure based on \cite{DeVore_Optimal_1989}]). The source must be included in the bibliography.
+	
+If you use an online source, you must include the URL and the date of access (e.g. [source: \url{https://www.fh-dortmund.de}, last accessed: 2024-04-17]).
+
+	In addition, each image must be referenced in the text, otherwise it is superfluous. The text should begin with a brief description of each image (What can you see in the image?), fol-lowed by an explanation and interpretation (What do you deduce from the image?). The im-ages should be close to the first reference in the text and embedded in the text in the order of their reference.
+	\begin{figure}[htb]
+		\centerline{\includegraphics[width=0.9\linewidth]{figures/Beispielbild.pdf}}
+		\caption[Beispielbild]{\label{fig:Example}Dies ist ein Beispielbild [Quelle: Eigene Erstellung].}
+	\end{figure}
+	
+	\section{Algorithms and Pseudocode}
+It can be useful to use pseudocode to explain algorithms. An example of this Pseudocode \ref{pseu:berechne}, where you should also choose a meaningful caption and reference the source code in the text.
+	\begin{pseudocode} 
+		\caption{Calculate $y = x^n$.}
+		\label{pseu:berechne}
+		\begin{algorithmic}[1]
+			\Require $n \geq 0 \vee x \neq 0$
+			\Ensure $y = x^n$
+			\State $y \Leftarrow 1$
+			\If{$n < 0$}
+			\State $X \Leftarrow 1 / x$
+			\State $N \Leftarrow -n$
+			\Else
+			\State $X \Leftarrow x$
+			\State $N \Leftarrow n$
+			\EndIf
+			\While{$N \neq 0$}
+			\If{$N$ ist gerade}
+			\State $X \Leftarrow X \times X$
+			\State $N \Leftarrow N / 2$
+			\Else
+			\State $y \Leftarrow y \times X$
+			\State $N \Leftarrow N - 1$
+			\EndIf
+			\EndWhile
+		\end{algorithmic}
+	\end{pseudocode}
+	
+	\section{Tables}
+	Some facts can be nicely summarised in a table. Make sure that tables are clear and do not exceed the page margins. 
+	Unlike figures, each table needs a heading {\bf above} the table. This must also be meaningful and give all the information needed to understand the table. Each table must be referenced in the text in the order in which it appears. Example: Table \ref{Tab:BeispielTabelle}. Make sure that the formatting of the table is consistent. For columns containing only numeri-cal values, right-justification is recommended. Also ensure a consistent number of decimal places (e.g. 3).
+	
+	\begin{table}
+		\centering
+		\caption{This is a meaningful table heading}\label{Tab:BeispielTabelle}
+		\begin{tabular}{|c|r|r|}
+			\hline
+			Name of Model&Hyper parameters&Accuracy (in \%)\\
+			\hline\hline
+			Modell A & $\alpha=0.010$&$77.010$\\
+			Modell B & $\alpha=0.001$&$80.310$\\
+			Modell C & $\alpha=0.100$&$71.050$\\
+			Modell D & $\alpha=0.050$&$12.010$\\
+			Modell E & $\alpha=0.010$&$60.010$\\
+			\hline
+		\end{tabular}
+	\end{table}
+	\chapter{Design}
+	This chapter analyzes and presents the design of the software in detail. Describe important decisions made during the design phase and give reasons for them. What requirements were identified? What requirements were rejected? 
+	\section{Design details}
+	Classic approach to the design and development of a software application (OOA, OOD, OOP, etc.). In particular, the corresponding diagrams should be included here (or – if too extensive – in the appendix at the latest).
+
+	\chapter{Implementation}
+	\label{chap:implementierung}
+This chapter describes the implementation. Focus on describing and explaining important details and implementation choices.
+	\section{Software Bill of Material}
+The Software Bill of Materials is a list of the software used for the implementation and its licenses. An example is shown in Table \ref{TAB:Software}.
+	
+	\begin{table}
+		\caption{Software used.}
+		\label{TAB:Software}
+		\begin{tabular}{|p{2cm}|p{2cm}|p{3.4cm}|p{1.5cm}|p{3cm}|}
+			\hline
+			Name&License&Purpose&Version&URL$^1$\\
+			\hline
+			Java&GNU GPL&Programming language&17.0.1&\url{https://www.oracle.com/java/}\\
+			Apache Tika&Apache 2.0&Java Toolkit &2.6.0&\url{https://tika.apache.org/}\\
+			Spring Framework&Apache 2.0&Java Framework&2021.0.5&\url{https://spring.io}\\
+			\multicolumn{5}{|c|}{...}\\
+			iText&AGPL 3.0&Java toolkit for editing PDF documents&7.2.4&\url{https://itextpdf.com/}\\
+			\hline
+			\multicolumn{5}{l}{$^1$ last access: 2023-02-20}
+		\end{tabular}
+	\end{table}
+	
+	\section{The choice of programming language}
+	Short justification for the choice of programming language. Which development tool did you use and why? Or did you work directly with the JDK? If so, why? No detailed introduction to Java; this is now standard. However: New and special libraries, packages or classes used must be justified and explained.
+	
+	
+	\section{Specific implementation details}
+	Selected parts of the source code that are essential for the functionality of the program should be explained in detail here. In addition to demonstrating the general concepts for im-plementing the mathematical computation in program code, this section also deals with is-sues such as efficiency, parallelizability, numerical stability, etc. Problems with the imple-mentation and their solutions can also be explained in this chapter.
+	
+	\chapter{Evaluation}
+	\label{chap:anwendung}
+The evaluation is usually the main part of your work when writing a machine learning thesis. Show that you have learned how to perform systematic experiments. The chapter contains the results of the developed tool or workflow. 
+	\chapter{Summary and Outlook}
+	\label{chap:zusammenfassung}
+	
+Once again, it is briefly explained what was actually done in the thesis. The author also states what he or she thinks could have been done differently. This allows you to show that you have looked beyond the scope of the actual problem. A total of 1-2 pages should be suf-ficient.  At the end of this chapter, the bachelor/master thesis should be about 40/80 pages long! Of course, this is only a rough guide, but it should be kept in mind! Better a good 40 pages than a redundant and boring 60 pages.
+	
+	
+	
+	% ******************************* APPENDIX ************************************
+	\appendix
+	\baselineskip=18pt
+	\chapter{Diagrams and Tables}
+	\label{chap:anhang_a}
+	One or more appendices can, but do not have to be present. As a rule of thumb, anything that disturbs the flow of reading can be included in an appendix, in particular source code listings (longer than one page), extensive tabular material, etc. The original source code of the pro-grams must also be submitted on a digital storage medium. Executable machine code for various platforms may also be included. The medium should always include a README text file describing exactly how to run the program.
+	
+	Unlike normal chapters, appendices are not numbered 1, 2, 3, ..., but A, B, C, .... If there is only one appendix, the numbering A can be omitted. 
+	
+	At the end of the appendix, the length of the Bachelor's/Master's thesis should be about 
+	60/100 pages!
+	\chapter{UML diagrams}
+	\label{chap:anhang_b}
+	
+	\begin{center}
+		This is where class diagrams and UML diagrams could be placed
+	\end{center}
+	
+	% ***************************** BACK MATTER ***********************************
+	\pagestyle{empty}
+	%%%%%%%%%%%%%%%%%%%%%% Die Erklärung auf der folgenden Seite muss vor der Einreichung der Thesis durch auskommentieren entfernt werden!!! %%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%\newpage
+	%\noindent
+	\vspace*{6cm}
+	% ***************************** BIBLIOGRAPHY **********************************
+	\baselineskip=14pt
+	\addcontentsline{toc}{chapter}{\protect\numberline{}\bibname}
+	\printbibheading
+	\printbibliography[nottype=online, heading=subbibliography, title={Sources}]
+	\printbibliography[type=online, heading=subbibliography, title={Online sources}]
+	%\newpage
+	%\begin{center}
+	%{\bf Spezielle Erklärung vor Beginn der Bachelor-Thesis/Master-Thesis}
+	%\end{center}
+	%Hiermit erkläre ich, dass ich die vorausgehenden Seiten, die man sich unter 
+	%\\
+	%{\small \bf \hspace*{0.3cm}ftp://gatekeeper.informatik.fh-dortmund.de/pub/professors/lenze/thesis/thesis.pdf} \\
+	%ansehen kann, mit den Erläuterungen zum Aufbau, zum Umfang und zum Inhalt einer
+	%Bachelor-/Master-Arbeit sorgfältig 
+	%gelesen und verstanden habe. Insbesondere ist mir klar, was man unter
+	%wissenschaftlichem Arbeiten versteht und dass korrektes Zitieren ein
+	%wesentliches Element in diesem Zusammenhang ist. Alle Fragen, die es in diesem
+	%Kontext noch gab, habe ich inzwischen mit Herrn Lenze geklärt, und es bestehen
+	%keine Unklarheiten mehr. Über die besondere Problematik von Plagiaten und den
+	%Kriterien, die ein Vorliegen anzeigen, bin ich ebenfalls genau unterrichtet.
+	
+	%\vspace{1.5cm}
+	%\toponym, den \\
+	%\ \ \  \ \ \hspace*{8cm} {\scriptsize Unterschrift!} \\
+	
+	\vfill\newpage
+	\addcontentsline{toc}{chapter}{\protect\numberline{}Declaration of Independence}
+	\newgeometry{left=3cm,top=1.0cm,right=3cm,bottom=1.0cm}
+	\chapter*{Declaration of Independence}
+	\vspace{-1cm}
+	\singlespacing
+	\noindent
+I hereby declare that I have written this thesis independently and have not used any outside help or sources other than those indicated. All passages taken literally or by analogy from published or unpublished writings and other sources have been marked as such. This thesis has not previously been submitted in the same or similar form to any examination authority.
+	\subsection*{Explanation of Tools Used}
+	\begin{enumerate}[leftmargin=*]
+		\itemsep0em 
+		\item	Use of the correction service of the University of Applied Sciences and Arts Dortmund or the Department of Computer Science:
+		\hfill
+		\begin{Form}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field1,bordercolor=black]{Yes}}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field2,bordercolor=black]{No}}
+		\end{Form}
+		\item Use of an external (commercial) proofreading service:	
+		\hfill
+		\begin{Form}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field3,bordercolor=black]{Yes}}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field4,bordercolor=black]{No}}
+		\end{Form}\\
+		if so, which\\
+		\TextField[multiline=False,name=field5,borderstyle=U,width=.8\linewidth,bordercolor=black]{}
+		\item 3)	The following persons have additionally proofread the thesis:\\
+		\TextField[multiline=False,name=field6,borderstyle=U,width=.8\linewidth,bordercolor=black]{}\\
+		\TextField[multiline=False,name=field7,borderstyle=U,width=.8\linewidth,bordercolor=black]{}\\
+		\TextField[multiline=False,name=field8,borderstyle=U,width=.8\linewidth,bordercolor=black]{}
+		\item Use of language models for texting (e.g. ChatGPT),
+		\hfill	\begin{Form}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field9,bordercolor=black]{Yes}}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field10,bordercolor=black]{No}}
+		\end{Form}\\
+		if so, which ones and in which sections:\\
+		\TextField[multiline=False,name=field11,borderstyle=U,width=1.0\linewidth,bordercolor=black]{}
+		\item Use of language translation tools (e.g., Google Translator, DeepL), \hfill
+		\begin{Form}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field12,bordercolor=black]{Yes}}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field13,bordercolor=black]{No}}
+		\end{Form}\\
+		if so, which ones and in which sections:\\
+		\TextField[multiline=False,name=field14,borderstyle=U,width=1.0\linewidth,bordercolor=black]{}
+		\item Use of language correction software (e.g., Grammarly),
+		\hfill	\begin{Form}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field15,bordercolor=black]{Yes}}
+			\mbox{\CheckBox[height=0.4cm,width=.4cm,checkboxsymbol=\ding{53},name=field16,bordercolor=black]{No}}
+		\end{Form}\\
+		if so, which ones and in which sections:\\
+		\TextField[multiline=False,name=field17,borderstyle=U,width=1.0\linewidth,bordercolor=black]{}\\
+		\item Use of other tools:\\
+		\TextField[multiline=False,name=field18,borderstyle=U,width=1.0\linewidth,bordercolor=black]{}
+	\end{enumerate}
+	
+	\noindent I acknowledge that my thesis may be checked using plagiarism detection software.\\
+	\noindent I confirm that the above statements have been completed in full and to the best of my knowledge.
+	
+	\vspace{1cm}
+	\toponym, \today
+	\begin{flushright}
+		\begin{tabular}{@{}l@{}}\hline
+			Author’s Signature
+		\end{tabular}
+	\end{flushright}
+\end{document}
