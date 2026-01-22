@@ -94,25 +94,25 @@
 \usepackage{xcolor}                  % TeX-Engine-unabhängige Definition von Farben
 
 % ****************************** TOP MATTER ***********************************
-\renewcommand{\author}{Fredi Student}           % Name
-\newcommand{\dateOfBirth}{xxxx-xx-xx}           % Geburtsdatum
-\newcommand{\matrNumber}{xxx xxxx}              % Matrikelnummer
+\renewcommand{\author}{Sergey Rogachevsky}           % Name
+\newcommand{\dateOfBirth}{1981-10-10}           % Geburtsdatum
+\newcommand{\matrNumber}{710 4711}              % Matrikelnummer
 \newcommand{\studycourse}{Computer Science}           % Studiengang
-\newcommand{\specialization}{Practical Computer Science}           % Studiengang
+\newcommand{\specialization}{Embedded Systems Engineering}           % Studiengang
 
-\newcommand{\supervisor}{Prof. Dr. Burkhard Lenze} % Betreuer
+\newcommand{\supervisor}{Prof. Dr.-Ing. Christoph M. Friedrich} % Betreuer
 
-\newcommand{\secondsupervisor}{Prof. Dr. Burkhard Lenze} % Zweitbetreuer
+\newcommand{\secondsupervisor}{M.Sc. Bastian Dewitz} % Zweitbetreuer
 \newcommand{\institution}{University of Applied Sciences and Arts Dortmund} % Hochschule
 \newcommand{\faculty}{Computer Science}               % Fachbereich
 \newcommand{\toponym}{Dortmund}                 % Ort
 
-\newcommand{\subject}{Bachelor-/Master Thesis}  % Art/Thema der Arbeit
-\newcommand{\titel}{This is the Title\\ The Original Template of   Prof. Dr. Lenze was Slightly Adjusted} % Titel der Arbeit
-\newcommand{\subtitel}{Two-line subtitle\\if available} % Untertitel
-\newcommand{\degree}{Bachelor/Master of Science} % Angestrebter Titel (nur bei Abschlussarbeiten, sonst leer lassen/auskommentieren)
+\newcommand{\subject}{Research Project}  % Art/Thema der Arbeit
+\newcommand{\titel}{Video surveillnce system \\ for Intensive Care Unit} % Titel der Arbeit
+\newcommand{\subtitel}{} % Untertitel
+\newcommand{\degree}{Master of Engineering} % Angestrebter Titel (nur bei Abschlussarbeiten, sonst leer lassen/auskommentieren)
 
-\newcommand{\keywords}{Vorlage, Bachelorarbeit, Masterarbeit, Informatik, {FH Dortmund}} % Stichworte (durch Komma getrennt)
+\newcommand{\keywords}{Research project, Informatik, {FH Dortmund}} % Stichworte (durch Komma getrennt)
 
 % **************************** HYPERREF SETUP *******************************
 \hypersetup
@@ -321,6 +321,9 @@
 	This should be an abstract of about half a page. The purpose of the abstract is to give the reader a compact overview of the entire thesis. It usually contains a compact presentation of the motivation, the research question, the methods used and the main results. The abstract must be understandable to the reader without knowledge of the rest of the thesis. It must not contain any information that goes beyond the content of the thesis. The abstract does not contain references. 
 	As a rule, you should write the abstract after you have completed the thesis. The aim is to provide a clear and focused summary of your work. This often takes several iterations.
 
+With development LLM technologies the requirements from the world about truth events inceresed tremendously. Differrent mthodes, new technologies makes infmormation overflowing. new approaches should be investigated and implemented  for the better results. 
+Among surveilence technologies can be used dieffernet sensors: ultrasound, infrared, LIDAR, For taking a correct decision they can be used together as sensor fusion. In this project it was defined reuiqrements to detect objects, their positions, defined if their position is inside defiened area and detect humans activites if someone is in the ICU. This information should be savedin appropriate form for future analysis.
+The sensors for this research projects were defined as RGBD cameras, promarily Femto Mega ORBBEC. The purpotse of the project is to assess accuracy and overall performance of such survilence system and prepare it to be in accordance to the law regulatory and medical standards in the software and hardware development. The project should extract the most reasonable parameters of the surveilence system and assess the developed plattform. the palttform should be later become a base for development Digital Twin for ICU.
 	\newpage
 	\section*{Abstract}
 Hier findet eine deutsche Übersetzung des englischen \glqq Abstract\grqq{} statt. 
@@ -383,7 +386,8 @@ Hier findet eine deutsche Übersetzung des englischen \glqq Abstract\grqq{} stat
 		\item Brief summary of the resulting objectives of the thesis
 		\item Brief outline of the structure of the thesis
 	\end{itemize}
-	
+	\section{Explanation of the problem}
+	ICU is one of the most important areas in clinics. 
 	\section{Motivation}
 	This section introduces and motivates the problem investigated in the thesis. 
 	
@@ -394,6 +398,23 @@ Hier findet eine deutsche Übersetzung des englischen \glqq Abstract\grqq{} stat
 	
 	\chapter{State of the art}\label{chap:StandDerTechnik}
 	If necessary, a more detailed classification of the thesis in the context of current research can be made here. This is particularly necessary for Master's theses. A clear distinction is usually made between the thesis and existing research and developments in related research areas. For the sake of clarity, it is often useful to prepare a table summarising the research results described in this section. This can be used to summarise the main content and findings of previous research.
+	
+	
+	
+	
+	Digital twin became a novice but thogh evry poluar methodology, due to its advamtages.  As a novel methodology which may significatly impact  on the medicie lot of large companies started to work on their own plattofrms. Planning future surgeries, simulation of the functionalities, induce  personalized treatment through artificial models, simulating variety of deseases to develpe new approasches in threatment and reposnse of organs on it.  Complexity of such system lead to division into as layers so architectures. Some companies concetraited their efforts on small critical parts as for example  till  for the entire patinet models with integrated EHR, genomics and imaging, and DigiTwins (EU Horizon 2020 project) oriented on predicting health outcomesand guiding personalized medidcine.
+	
+	- Simulated distinctive Organs
+		Philips Digital Twin for Cardiology or Siemens Healthineers - Digital Twin of the heart, Dassauot Systemes - Libig Heart and Living Lung Project
+	- Body-leveld Systems
+	Siemens Healthineers and IBM Watson Health
+	- Dsease specific Plattforms
+	nvidia Clara project for the cancer genome analysis
+	- Surgery and rehabilitationb Twins
+	intuitive Surgical (Da Vinci), Rehabilitation twin to simulate musculoskeletal functions.
+	- Infrastructure and Device-level Twins
+	GE Healthcare and Medtronic - medical devices, ICU Bed Digital Twin
+	
 	
 	\section{Citation}
 	Important in this and all subsequent chapters: {\bf Cite your sources!!!} Whenever something is taken literally or analogously from a book, a publication, a lecture or a website, this {\bf must} be indicated by stating the source in the text (e.g., \cite[vgl.][S.\ 23ff]{Lenze_Einfuehrung_2000}) and the complete source in the bibliography! It is absolutely not permitted to copy longer passages {\bf verbatim, almost verbatim or analogously} from another document without citing this precisely, even if the reference is given in the bibliography (plagiarism, failed, no repeti-tion possible). As part of the declaration at the end of the Bachelor's/Master's thesis, the stu-dent pledges to have complied with this fundamental obligation in the context of academic work, to have cited all sources and to have indicated quotations.  \cite{Bloch2023PreprintResolver}, \cite{Bloch2023PreprintResolvera}
@@ -514,7 +535,15 @@ The Software Bill of Materials is a list of the software used for the implementa
 	\end{table}
 	
 	\section{The choice of programming language}
+
 	Short justification for the choice of programming language. Which development tool did you use and why? Or did you work directly with the JDK? If so, why? No detailed introduction to Java; this is now standard. However: New and special libraries, packages or classes used must be justified and explained.
+	Currently the amount of new languages so as old enhanced are overwelming. As in this application will be used  2 parts, it was decided to use for backend: python and java.frontend python TK framework and vue.js.
+	Although current situation in programming languages area is very dynamic: some languages quite fast become obsolete, some revive from the post, some environmental requirements limited the selecion of them. Thus, as a fronend to the TK python framework. TK framework is one threaded simple framework, oriented onto fast modeling of an application using python programming lagnuage. This framework has a set of GUI elements, which mostly are enough to bild user-friendly GUI. As in the app it is used machine learning python was chosen as a perfect tool for that, makine development of the part of application easier, faster and more cofrtable. For the backend it was used spring boot.  Object oriented language make it better to create applications with complex data structure. fronend for the admin site was selected vue.js. This is a modern framework makeing UI flexible, scalebale and user friendly. As A student of FH Dortmund it was clearly selected JetBrains PyCharm and JetBrains IntellyJ Idea. Thses IDE are used on all levels of developemtn - from students till professionnals, because of wide programming features. The used license is from FH Dortmnd, what make it free for students. 
+	Libraries which were used are:
+	o3d. IT is open source library. 
+	
+	
+	
 	
 	
 	\section{Specific implementation details}
