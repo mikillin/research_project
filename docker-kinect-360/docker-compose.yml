@@ -1,0 +1,18 @@
+services:
+  kinect-base:
+    build:
+      context: ./libs
+      dockerfile: Dockerfile
+    image: kinect-base
+
+  app:
+    container_name: kinect-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: kinect-app-rest
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    privileged: true
+    depends_on:
+      - kinect-base
