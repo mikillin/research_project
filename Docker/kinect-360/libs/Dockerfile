@@ -40,9 +40,9 @@ RUN ls -l /opt/libfreenect/wrappers/python/freenect*.so
 
 # Install the python extension into site-packages
 RUN python_version=$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")') \
-    && mkdir -p /usr/local/lib/python${python_version}/site-packages/freenect \
-    && cp /opt/libfreenect/wrappers/python/freenect*.so /usr/local/lib/python${python_version}/site-packages/freenect/ \
-    && touch /usr/local/lib/python${python_version}/site-packages/freenect/__init__.py
+    && mkdir -p /usr/local/lib/python${python_version}/dist-packages/freenect \
+    && cp /opt/libfreenect/wrappers/python/freenect*.so /usr/local/lib/python${python_version}/dist-packages/freenect/ \
+    && touch /usr/local/lib/python${python_version}/dist-packages/freenect/__init__.py
 
 # ====== Runtime stage ======
 FROM ubuntu:22.04
