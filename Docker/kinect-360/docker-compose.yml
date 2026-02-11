@@ -14,5 +14,6 @@ services:
     devices:
       - /dev/bus/usb:/dev/bus/usb
     privileged: true
+    user: root
     depends_on:
       - kinect-base
