@@ -19,15 +19,21 @@ services:
       - kinect-base
 
   mongo:
-    image: mongo:7.0
+    image: mongo:7.0.14
     container_name: sensor-data-mongo-db
-    command: ["mongod", "--logpath", "/var/log/mongodb/mongod.log", "--logappend"] 
+    command: ["mongod"] 
     env_file:
         - .env
     volumes:
         - mongo_data:/data/db
-        - mongo_logs:/var/log/mongodb
+    logging:
+        driver: "json-file"
+        options:
+          max-size: "10m"
+          max-file: "3"
+
 
 volumes:
   mongo_data:
-  mongo_logs:
+
+  
