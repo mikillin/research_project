@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - camera_service
+      - detection_engine
+    environment:
+      - CAMERA_SERVICE_URL=[camera_service](http://camera_service:8001)
+      - DETECTION_SERVICE_URL=[detection_engine](http://detection_engine:8002)
+    networks:
+      - detection_network
+
+  camera_service:
+    build:
+      context: .
+      dockerfile: camera_service/Dockerfile
+    ports:
+      - "8001:8001"
+    devices:
+      - /dev/video0:/dev/video0  # Webcam
+    privileged: true
+    networks:
+      - detection_network
+
+  detection_engine:
+    build:
+      context: .
+      dockerfile: detection_engine/Dockerfile
+    ports:
+      - "8002:8002"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - detection_network
+
+networks:
+  detection_network:
+    driver: bridge
