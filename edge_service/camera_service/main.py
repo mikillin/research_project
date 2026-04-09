@@ -6,9 +6,12 @@ from pydantic import BaseModel
 import base64
 import logging
 
+
+
 from camera_service.services.camera_manager import CameraManager, CameraRegistry
 from camera_service.cameras.base import CameraConfig
 from shared.models import CameraType
+from fastapi.responses import Response
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -53,7 +56,7 @@ class CaptureResponse(BaseModel):
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "camera"}
+    return {"status": "healthy", "service": "camera"} ## /* TODO:: implement */
 
 
 @app.get("/cameras")
@@ -68,7 +71,7 @@ async def list_camera_types():
     return {"types": [t.value for t in CameraRegistry.available_types()]}
 
 
-@app.post("/cameras", status_code=status.HTTP_201_CREATED)
+@app.post("/cameras/add", status_code=status.HTTP_201_CREATED)
 async def add_camera(request: AddCameraRequest):
     """Add and connect a new camera."""
     config = CameraConfig(
@@ -125,6 +128,22 @@ async def capture_frame(camera_id: str):
         depth_frame_base64=base64.b64encode(frame.depth_frame).decode() if frame.depth_frame else None,
     )
 
+
+
+@app.get("/cameras/{camera_id}/capture/rgb")
+async def capture_rgb(camera_id: str):
+    frame = camera_manager.capture_frame(camera_id)
+
+    if frame is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Capture failed",
+        )
+
+    return Response(
+        content=frame.frame_data,
+        media_type="image/jpeg"
+    )
 
 if __name__ == "__main__":
     import uvicorn

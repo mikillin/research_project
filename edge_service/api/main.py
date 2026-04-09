@@ -7,15 +7,29 @@ from pydantic import BaseModel
 from typing import Optional
 import httpx
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Service URLs (configurable via environment)
-CAMERA_SERVICE_URL = "[camera_service](http://camera_service:8001)"
-DETECTION_SERVICE_URL = "[detection_engine](http://detection_engine:8002)"
+CAMERA_SERVICE_URL = "http://camera_service:8001"
+DETECTION_SERVICE_URL = "http://detection_engine:8002"
 
 http_client: Optional[httpx.AsyncClient] = None
+
+
+
+def get_camera_url() -> str:
+    url = os.getenv("CAMERA_SERVICE_URL", "").strip()
+
+    if not url.startswith(("http://", "https://")):
+        raise ValueError(f"Invalid CAMERA_SERVICE_URL: {url}")
+
+    return url
+
+CAMERA_SERVICE_URL = get_camera_url()
+
 
 
 @asynccontextmanager

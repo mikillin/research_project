@@ -51,7 +51,7 @@ class WebcamCamera(BaseCamera):
         self._is_running = False
         logger.info(f"Webcam {self.config.camera_id} disconnected")
 
-    def capture_frame(self) -> Optional[CameraFrame]:
+    def capture_frame(self) -> CameraFrame:
         if self._capture is None or not self._capture.isOpened():
             logger.warning("Webcam not connected")
             return None

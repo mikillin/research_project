@@ -11,8 +11,8 @@ services:
       - camera_service
       - detection_engine
     environment:
-      - CAMERA_SERVICE_URL=[camera_service](http://camera_service:8001)
-      - DETECTION_SERVICE_URL=[detection_engine](http://detection_engine:8002)
+      - CAMERA_SERVICE_URL=http://camera_service:8001
+      - DETECTION_SERVICE_URL=http://detection_engine:8002
     networks:
       - detection_network
 
@@ -20,8 +20,7 @@ services:
     build:
       context: .
       dockerfile: camera_service/Dockerfile
-    ports:
-      - "8001:8001"
+
     devices:
       - /dev/video0:/dev/video0  # Webcam
     privileged: true
@@ -32,15 +31,7 @@ services:
     build:
       context: .
       dockerfile: detection_engine/Dockerfile
-    ports:
-      - "8002:8002"
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+
     networks:
       - detection_network
 

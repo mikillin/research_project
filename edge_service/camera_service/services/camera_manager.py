@@ -21,9 +21,14 @@ class CameraRegistry:
 
     @classmethod
     def register(cls, camera_type: CameraType, camera_class: Type[BaseCamera]) -> None:
-        """Register a new camera implementation."""
+        if camera_type in cls._cameras:
+            raise ValueError(f"Camera type {camera_type} already registered")
+
         cls._cameras[camera_type] = camera_class
-        logger.info(f"Registered camera type: {camera_type.value}")
+
+        logger.info(
+            f"Registered camera: {camera_type.name} -> {camera_class.__name__}"
+        )
 
     @classmethod
     def get(cls, camera_type: CameraType) -> Optional[Type[BaseCamera]]:

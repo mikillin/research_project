@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.7.3)  13 JUL 2025 13:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.7.3)  9 APR 2026 02:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -928,6 +928,10 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\\' on input line 137.
 
 
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 137.
+
+
 (C:\Users\Sergey Rogachevsky\AppData\Local\Programs\MiKTeX\tex/latex/listings\l
 stlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
@@ -1115,6 +1119,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 278--281
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 278--281
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 301--308
 
  []
@@ -1198,8 +1207,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.396 	\section
-               {Structure of the thesis} [1
+l.396 	
+        [1
 
 ] [2]
 Chapter 2.
@@ -1208,39 +1217,39 @@ Chapter 2.
 ]
 
 LaTeX Warning: Citation 'Lenze_Einfuehrung_2000' on page 4 undefined on input l
-ine 420.
+ine 423.
 
 
 LaTeX Warning: Citation 'Bloch2023PreprintResolver' on page 4 undefined on inpu
-t line 420.
+t line 423.
 
 
 LaTeX Warning: Citation 'Bloch2023PreprintResolvera' on page 4 undefined on inp
-ut line 420.
+ut line 423.
 
 
-LaTeX Warning: Citation 'Article' on page 4 undefined on input line 428.
+LaTeX Warning: Citation 'Article' on page 4 undefined on input line 431.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 428.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 431.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 428.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 431.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 428.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 431.
 
-LaTeX Warning: Citation 'Article' on page 4 undefined on input line 428.
+LaTeX Warning: Citation 'Article' on page 4 undefined on input line 431.
 
 [4]
 
 LaTeX Warning: Citation 'Chui_Approximation_1992' on page 5 undefined on input 
-line 430.
+line 433.
 
 
 LaTeX Warning: Citation 'Leshno_Multilayer_1993' on page 5 undefined on input l
-ine 430.
+ine 433.
 
 
-LaTeX Warning: Citation 'kupper1986kunst' on page 5 undefined on input line 434
+LaTeX Warning: Citation 'kupper1986kunst' on page 5 undefined on input line 437
 .
 
 [5]
@@ -1249,20 +1258,20 @@ Chapter 3.
 
 ]
 
-LaTeX Warning: Citation 'Lenze_Note_1994' on page 7 undefined on input line 452
+LaTeX Warning: Citation 'Lenze_Note_1994' on page 7 undefined on input line 455
 .
 
 
 LaTeX Warning: Citation 'DeVore_Optimal_1989' on page 7 undefined on input line
- 452.
+ 455.
 
 <figures/Beispielbild.pdf, id=193, 601.59895pt x 477.785pt>
 File: figures/Beispielbild.pdf Graphic file (type pdf)
 <use figures/Beispielbild.pdf>
-Package pdftex.def Info: figures/Beispielbild.pdf  used on input line 458.
+Package pdftex.def Info: figures/Beispielbild.pdf  used on input line 461.
 (pdftex.def)             Requested size: 358.50227pt x 284.71938pt.
 Package hyperref Info: bookmark level for unknown pseudocode defaults to 0 on i
-nput line 465.
+nput line 468.
 [7] [8 <./figures/Beispielbild.pdf>] [9]
 Chapter 4.
 [10
@@ -1270,22 +1279,22 @@ Chapter 4.
 ]
 Chapter 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--527
+Underfull \hbox (badness 10000) in paragraph at lines 530--530
 []|\T1/ptm/m/n/12 Programming
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 528--528
+Underfull \hbox (badness 10000) in paragraph at lines 531--531
 []|\T1/ptm/m/n/12 Apache
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 529--529
+Underfull \hbox (badness 10000) in paragraph at lines 532--532
 []|\T1/ptm/m/n/12 Spring
  []
 
 
-Overfull \hbox (2.64896pt too wide) in paragraph at lines 523--535
+Overfull \hbox (2.64896pt too wide) in paragraph at lines 526--538
 [][] 
  []
 
@@ -1309,13 +1318,13 @@ Appendix B.
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 591.
+LaTeX Warning: Empty bibliography on input line 594.
 
 
-Package biblatex Warning: Type 'online' not found on input line 592.
+Package biblatex Warning: Type 'online' not found on input line 595.
 
 
-LaTeX Warning: Empty bibliography on input line 592.
+LaTeX Warning: Empty bibliography on input line 595.
 
 [18
 
@@ -1352,14 +1361,14 @@ LaTeX Warning: Empty bibliography on input line 592.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+pzd on input line 627
+LaTeX Font Info:    Trying to load font information for U+pzd on input line 630
 .
 
 (C:\Users\Sergey Rogachevsky\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\upz
 d.fd
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 656--663
+Underfull \hbox (badness 10000) in paragraph at lines 659--666
 
  []
 
@@ -1388,7 +1397,7 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  24510 strings out of 474486
- 428724 string characters out of 5737584
+ 428815 string characters out of 5737584
  1939542 words of memory out of 5000000
  46390 multiletter control sequences out of 15000+600000
  627323 words of font info for 132 fonts, out of 8000000 for 9000
@@ -1408,7 +1417,7 @@ gachevsky/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Us
 ers/Sergey Rogachevsky/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr
 i8a.pfb><C:/Users/Sergey Rogachevsky/AppData/Local/Programs/MiKTeX/fonts/type1/
 urw/zapfding/uzdr.pfb>
-Output written on thesis.pdf (25 pages, 213606 bytes).
+Output written on thesis.pdf (25 pages, 215273 bytes).
 PDF statistics:
  411 PDF objects out of 1000 (max. 8388607)
  68 named destinations out of 1000 (max. 500000)
